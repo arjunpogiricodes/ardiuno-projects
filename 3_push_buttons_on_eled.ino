@@ -1,51 +1,46 @@
-int button1=2;
-int button2=3;
-int button3=4;
-int count=0;
-int led=12;
-int number;
-void arjun ()
-{
-  while(count<number)
-  {
-   digitalWrite(led,HIGH);
-   delay(300);
-   digitalWrite(led,LOW);
-   number=count-1;
-  }
-}
-
+int led=10;
+int count=1;
+int reset=2;
+int start=3;
+int counter=0;
+int state=0;
 void setup() {
-  
-pinMode(button1,INPUT);
-pinMode(button2,INPUT);
-pinMode(button3,INPUT);
 pinMode(led,OUTPUT);
+pinMode(count,INPUT);
+pinMode(reset,INPUT);
+pinMode(start,INPUT);
+
 }
 
-void loop()
+void loop() {
+ state=digitalRead(count);
+ int state1=digitalRead(reset);
+ int state2=digitalRead(start);
+  if(state==HIGH)
+  {
+    counter=counter+1;
+    delay(500);
+   }
+
+if(state1==HIGH)
 {
- int state1=digitalRead(button1);
-  if(state1==HIGH)
-
- {
- number=count+1;
- delay(100);
- }
- int state2=digitalRead(button2);
-
-
+  counter=0;   
+}
  
- 
-  if(state2==HIGH)
+ if(state2==HIGH)
  {
-  number;
- arjun();
+for(int i=0;counter>i;i++)
+{
+digitalWrite(led,HIGH);
+delay(500);
+digitalWrite(led,LOW);
+delay(500);
+
+}
+}
+else
+{
+  digitalWrite(led,LOW);
+}
     
- }
- 
-  
- 
- 
-  
- }
+}
