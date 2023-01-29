@@ -1,139 +1,115 @@
-#include <LiquidCrystal.h>
-#include <String.h>
-int zero=0;
-int one=1;
-int two=2;
-int three=3;
-int four=4;
-int five=5;
-int six=6;
-int seven=7;
-int eight =8;
-int nine=9;
-int enter=10;
-int led=13;
-int num=5;
-const int rs = 12, en = 11, d4 = A4, d5 = A3, d6 = A2, d7 = A1;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
-String password = "666";
-String input_password;
-void push_button()
+#include<math.h>
+const int zero = 13;
+const int one = 12;
+const int two = 11;
+const int three = 10;
+const int four = 9;
+const int five = 8;
+const int six = 7;
+const int seven = 6;
+const int eight = 5;
+const int nine = 4;
+const int Green_LED=2;
+const int Red_LED=1;
+const int Buzzer=0;
+int pin;
+const int User_Pin=1234; //Password 
+int press_button()
 {
-  if(digitalRead(zero)==HIGH)
-{
- Serial.write("0");
- delay(100);
-}
- if(digitalRead(one)==HIGH)
-{
- Serial.write("1");
- delay(100);
- }
- if(digitalRead(two)==HIGH)
-{
- Serial.write("2");
- delay(100);
-}
-if(digitalRead(three)==HIGH)
-{
- Serial.write("3");
- delay(100);
-}
-if(digitalRead(four)==HIGH)
-{
- Serial.write("4");
- delay(100);
-}
-if(digitalRead(five)==HIGH)
-{
- Serial.write("5");
- delay(100);
-}
-if(digitalRead(six)==HIGH)
-{
- Serial.write("6");
- delay(100);
-}
-if(digitalRead(seven)==HIGH)
-{
- Serial.write("7");
- delay(100);
-}
-if(digitalRead(eight)==HIGH)
-{
- Serial.write("8");
- delay(100);
-}
-if(digitalRead(nine)==HIGH)
-{
- Serial.write("9");
- delay(100);
-}
-
-  
-}
-
-void setup() {
-  Serial.begin(9600);
- lcd.begin(16, 2);
- pinMode(one,INPUT);
- pinMode(zero,INPUT); 
-pinMode(two,INPUT);
-pinMode(three,INPUT);
-pinMode(four,INPUT);
-pinMode(five,INPUT);
-pinMode(six,INPUT);
-pinMode(seven,INPUT);
-pinMode(eight,INPUT);
-pinMode(nine,INPUT);
-pinMode(enter,INPUT);
-pinMode(led,OUTPUT);
-input_password.reserve(32);
-
-}
-void loop() {
-lcd.clear();
-lcd.setCursor(0, 0);
-lcd.print("EnterUnlock Code");
-delay(100);
-if(Serial.available())
+  if(digitalRead(zero)||digitalRead(one)||digitalRead(two)||digitalRead(three)||digitalRead(four)||digitalRead(five)
+  ||digitalRead(six)||digitalRead(seven)||digitalRead(eight)||digitalRead(nine)) 
   {
-input_password= Serial.read();
+  return 1;
+  }
+  else
+  {
+    return 0;
+  }
+}
+void setup() 
 
-
- lcd.setCursor(num, 1);
- lcd.print(input_password);
- num+1;
- delay(1000);
- }
-else if(password==input_password)
- {
-  lcd.clear();
-  delay(100);
-  lcd.print("welcome");
-  
- }
- else
- {
-  lcd.clear();
-  delay(100);
-  lcd.print("incorrect password");
+{
+  pinMode(zero,INPUT);
+  pinMode(one,INPUT);   
+  pinMode(three,INPUT);
+  pinMode(four,INPUT);
+  pinMode(five,INPUT);
+  pinMode(six,INPUT);
+  pinMode(seven,INPUT);
+  pinMode(eight,INPUT);             
+  pinMode(nine,INPUT); 
+  pinMode(Green_LED,OUTPUT); 
+  pinMode(Red_LED,OUTPUT);
+  pinMode(Buzzer,OUTPUT);   
 }
 
-
-
-
-
-
-
-
-
+void loop() 
+{
+  while(!press_button())
+  {
+        
+  }
+  int Final_Pin=0;
+  for(int state=0;state<4;state++)
+  {
+    if(digitalRead(zero))
+    {
+      pin=0;              
+    }  
+    if(digitalRead(one))
+    {
+      pin=1;              
+    }  
+    if(digitalRead(two))
+    {
+      pin=2;              
+    }  
+    if(digitalRead(three))
+    {
+      pin=3;              
+    } 
+    if(digitalRead(four))
+    {
+      pin=4;              
+    }  
+    if(digitalRead(five))
+    {
+      pin=5;              
+    }  
+    if(digitalRead(six))
+    {
+      pin=6;              
+    }  
+    if(digitalRead(seven))
+    {
+      pin=7;              
+    }  
+    if(digitalRead(eight))
+    {
+      pin=8;              
+    }  
+    if(digitalRead(nine))
+    {
+      pin=9;              
+    }    
+    Final_Pin=(Final_Pin*10)+pin;  //Generation of 4 digit pin from Single pins
+    
+  }
+  if(Final_Pin==User_Pin)
+  {
+    digitalWrite(Green_LED,HIGH);
+    delay(3000);
+    digitalWrite(Green_LED,LOW);    
+    
+  }
+  else
+  {
+    digitalWrite(Red_LED,HIGH);
+    digitalWrite(Buzzer,HIGH);
+    delay(3000);
+    digitalWrite(Red_LED,LOW);
+    digitalWrite(Buzzer,LOW);    
+  }
   
-
-
-
-
-
-
 
 }
