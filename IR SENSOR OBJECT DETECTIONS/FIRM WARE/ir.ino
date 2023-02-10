@@ -10,16 +10,7 @@ int sum=0;
 int button_good=3;
 int button_bad =2; 
 int button_reset =1; 
-/*void writtenintoeeprom(int address,int number)
-{
- 
-  EEPROM.write(address, number >>8);
-  EEPROM.write(address + 1,number & 0xFF);
-}
-void readintoeeprom(int address)
-{
-  return (EEPROM.read(address)<<8) +(EEPROM.read(address+1));
-  }*/
+
 
 void setup() {
   
@@ -40,10 +31,7 @@ void loop() {
       EEPROM.write(1,count);
       delay(400);
      
-   /*  else
-     {
-      count=count;
-     } */
+   
     if(state1==HIGH)
     {
       good=good+1;
@@ -108,10 +96,5 @@ void loop() {
   lcd.print("TOTAL OBJECTS:");
   sum=EEPROM.read(7);
   lcd.print(sum);
-  
-  
- 
-  //writtenintoeeprom(45,count);
-  //readintoeeprom(45);
-  
+
 }
